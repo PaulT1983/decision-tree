@@ -21,7 +21,7 @@ DecisionTreeRouter.post(
     const serializedTree = tree.serialize();
 
     res.status(200).json({
-      data: serializedTree,
+      serializedTree
     });
   })
 );

@@ -1,0 +1,293 @@
+{
+	"info": {
+		"_postman_id": "bd91a9d0-ad1b-4518-980b-bd49000f76f2",
+		"name": "Decision tree tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39991820"
+	},
+	"item": [
+		{
+			"name": "Test Case 1: Send SMS",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"type\": \"SMS\",\n  \"phoneNumber\": \"+1234567890\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/execute-tree",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"execute-tree"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Case 2: Send Email",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"type\": \"Email\",\n  \"sender\": \"noreply@example.com\",\n  \"receiver\": \"user@example.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/execute-tree",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"execute-tree"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Case 3: Condition with True/False Branches",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"type\": \"Condition\",\n  \"expression\": \"new Date().getDate() === 7 && new Date().getMonth() === 0\",\n  \"trueAction\": { \"type\": \"SMS\", \"phoneNumber\": \"+1234567890\" },\n  \"falseAction\": { \"type\": \"Email\", \"sender\": \"noreply@example.com\", \"receiver\": \"user@example.com\" }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/execute-tree",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"execute-tree"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Case 4: Loop with Conditional Subtree",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"type\": \"Loop\",\n  \"iterations\": 3,\n  \"subtree\": {\n    \"type\": \"Condition\",\n    \"expression\": \"Math.random() > 0.5\",\n    \"trueAction\": { \"type\": \"SMS\", \"phoneNumber\": \"+1234567890\" },\n    \"falseAction\": { \"type\": \"Email\", \"sender\": \"noreply@example.com\", \"receiver\": \"user@example.com\" }\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/execute-tree",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"execute-tree"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Case 5: Incorrect request - Loop with Condition",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"type\": \"Loop\",\n  \"iterationsz\": \"5\",\n  \"subtree\": {\n    \"type\": \"Condition\",\n    \"expression\": \"Math.random() > 0.5\",\n    \"trueAction\": { \"typer\": \"SMS\", \"phoneNumber\": \"+1234567890\" },\n    \"falseAction\": { \"type\": \"Email\", \"sender\": \"noreply@example.com\", \"receiver\": \"user@example.com\" }\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/execute-tree",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"execute-tree"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Case 6: Complex Request with incorrect field name",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"type\": \"Loop\",\n  \"iterations\": 3,\n  \"subtree\": {\n    \"type\": \"Condition\",\n    \"expression\": \"Math.random() > 0.5\",\n    \"trueAction\": {\n      \"type\": \"Loop\",\n      \"iterations\": 2,\n      \"subtree\": {\n        \"type\": \"SMS\",\n        \"phoneNumber\": \"+1234567890\"\n      }\n    },\n    \"falseAction\": {\n      \"type\": \"Email\",\n      \"senderZ\": \"noreply@example.com\",\n      \"receiver\": \"user@example.com\"\n    }\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/execute-tree",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"execute-tree"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Case 7: Incorrect route name",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"type\": \"SMS\",\n  \"phoneNumber\": \"+1234567890\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/execute-treeT",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"execute-treeT"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Case 8: Missing Field",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"phoneNumber\": \"+1234567890\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/execute-tree",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"execute-tree"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Case9: Invalid route method",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"type\": \"SMS\",\n  \"phoneNumber\": \"+1234567890\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/execute-tree",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"execute-tree"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Case 10: Invalid JSON request format",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"type\": \"SMS\",\n  \"phoneNumber\": +1234567890\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/execute-tree",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"execute-tree"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

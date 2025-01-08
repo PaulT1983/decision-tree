@@ -17,9 +17,9 @@ export function validateBody(schemas: { [key: string]: { [method: string]: Joi.S
     const schema = schemas[req.path]?.[req.method]; // Locate schema based on route and method
     if (schema) {
       req.validated = true; // Add validated flag to req
-      const { error } = schema.validate(req.body, { abortEarly: false });
+      const { error } = schema.validate(req.body);
       if (error) {
-        req.error_message = error.details.map((detail) => detail.message).join(", ");
+        req.error_message = error.details[0]?.message;
       } else {
         logger.info(`Validation succeeded for ${req.method} ${req.path}`);
       }
